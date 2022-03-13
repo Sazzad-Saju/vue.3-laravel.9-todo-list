@@ -41,6 +41,7 @@ class ItemController extends Controller
         $newItem = new Item;
         // request gets an object item have prop name
         $newItem->name = $request->item["name"];
+        $newItem->completed = false;
         $newItem->save();
 
         return $newItem;
