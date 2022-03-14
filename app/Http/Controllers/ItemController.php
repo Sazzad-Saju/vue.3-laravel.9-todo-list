@@ -38,6 +38,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $newItem = new Item;
         // request gets an object item have prop name
         $newItem->name = $request->item["name"];

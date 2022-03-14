@@ -28,10 +28,14 @@ import listVue from "./listVue.vue"
         },
         methods:{
             getList(){
-                console.log("autoload");
                 axios.get('api/items')
                 .then(response =>{
                     this.items = response.data;
+                    // console.log(this.items.length);
+                    for (var i=0; i<this.items.length;i++){
+                        this.items[i].completed = this.items[i].completed == 1 ? true : false
+                        // console.log(this.items[i]) //here checkbox solved
+                    }
                 })
                 .catch(error =>{
                     console.log(error);
@@ -41,6 +45,7 @@ import listVue from "./listVue.vue"
         created() {
             // when this component created call getList
             this.getList();
+            
         }
     }
 </script>

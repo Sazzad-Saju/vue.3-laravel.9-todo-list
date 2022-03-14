@@ -3,11 +3,12 @@
         <input
             type="checkbox"
             @change="updateCheck()"
-            v-model="is_checked"
+            v-model="item.completed"
         >
          <!-- v-if = "item.completed == true" checked -->
         <span :class="[item.completed ? 'completed': '', 'itemText']">
-            {{item.name}} {{item.completed}}
+            <!-- {{item.name}} {{item.completed}} -->
+            {{item.name}}
         </span>
         <button @click="removeItem"
         class="trashcan">
@@ -19,17 +20,12 @@
 <script>
 export default {
     props:['item'],
-    data (){
-        return {
-            is_checked : false
-        }
-    },
-    created(){
-        this.is_checked = this.item.completed == 1 ? true : false
-    },
+    // created(){
+    //     this.item.completed = this.item.completed == 1 ? true : false
+    // },
     methods:{
         updateCheck(){
-            this.item.completed = !this.item.completed;
+            // this.item.completed = !this.item.completed;
             axios.put('api/item/'+ this.item.id, {
                 item: this.item
             })
@@ -43,6 +39,7 @@ export default {
             })
         },
         removeItem(){
+            if(confirm('Detele "'+this.item.name+'" ?')){
             axios.delete('api/item/'+this.item.id)
             .then(response =>{
                 if(response.status ==200){
@@ -52,6 +49,7 @@ export default {
             .catch(error=>{
                 console.log(error);
             })
+            }
         }
     }
 }

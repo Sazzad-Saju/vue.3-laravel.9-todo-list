@@ -1,6 +1,6 @@
 <template>
     <div class="addItemForm">
-        <input type="text" v-model="item.name">
+        <input type="text" v-model="item.name" @keyup.enter="addItem()">
         <i class="fas fa-plus-square" 
         :class="[item.name ? 'active' : 'inactive' , 'plus']"
         @click="addItem()"></i>
@@ -27,7 +27,7 @@ export default {
             .then(response => {
                 if(response.status == 201){
                     this.item.name = "";
-                    this.$emit('autoload'); 
+                    this.$emit('autoload');
                 }
             })
             .catch(error => {
